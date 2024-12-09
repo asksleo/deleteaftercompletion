@@ -1,4 +1,4 @@
-name: Run Regression Tests and Generate Allure Report
+name: Build and Run Feature Files
 
 on:
   push:
@@ -8,12 +8,11 @@ on:
 
 jobs:
   build-and-test:
-    regressiont001:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: styfle/cancel-workflow-action@0.10.0
+        uses: actions/checkout@v2
 
       - name: Set up JDK
         uses: actions/setup-java@v2
@@ -21,30 +20,22 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Build with Maven
-        id: tests
-        run: mvn clean -D surefire.rerunFailingTestsCount=2 test -D cucumber.filter.tags=@regression_T001_504_Initial_Evaluation_And_Meeting_2_1
-
-      - name: Publish Cucumber Report artifact
-        if: always()
-        uses: actions/upload-artifact@v3.1.0
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@v2
         with:
-          name: cucumber-report
-          path: target/cucumber-reports/cucumber.html
+          wrapper-cache-enabled: true
 
-      - name: Publish Allure Report artifact
-        if: always()
-        uses: actions/upload-artifact@v3.1.0
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Run Cucumber Tests
+        run: ./gradlew cucumber
+
+      - name: Generate Allure Report
+        run: ./gradlew allureReport
+
+      - name: Upload Allure Report as Artifact
+        uses: actions/upload-artifact@v2
         with:
           name: allure-report
-          path: target/allure-results/
-
-      - name: Generate Allure report
-        uses: simple-elf/allure-report-action@master
-        if: always()
-        id: allure-report
-        with:
-          allure_results: target/allure-results
-          gh_pages: gh-pages
-          allure_report: allure-report
-          allure_history: allure-history
+          path: build/reports/allure-report
