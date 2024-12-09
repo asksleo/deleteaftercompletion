@@ -1,9 +1,9 @@
 package stepdefinition;
 
-import org.testng.Assert;
 
 import io.cucumber.java.en.Then;
-import pageobject.AllureReportSummarizer;
+
+import org.junit.Assert;
 import pageobject.SlackNotifier;
 import utils.Testcontextsetup;
 
@@ -18,6 +18,6 @@ public class Compar {
 	    String reportLink = "link to your test report";
 String message = "Test execution completed: " + reportLink; 
 	    SlackNotifier.sendSlackNotification(message);
-	    AllureReportSummarizer.sendSlackNotification(message);
+
 	}
 }
