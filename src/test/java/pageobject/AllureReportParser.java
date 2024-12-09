@@ -12,6 +12,7 @@ public class AllureReportParser {
         String jsonDir = "C:\\Users\\karan\\Downloads\\allure-report";
         Summary summary = getSummaryFromJson(jsonDir);
         System.out.println(summary);
+        System.out.println("printed");
     }
 
     public static Summary getSummaryFromJson(String jsonDir) {
