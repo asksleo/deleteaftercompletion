@@ -3,7 +3,25 @@
   <groupId>deleteaftercompletion</groupId>
   <artifactId>deleteaftercompletion</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <dependencies><!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+    <properties>
+        <allure.version>2.24.0</allure.version>
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-bom</artifactId>
+                <version>${allure.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+
+
 <dependency>
     <groupId>io.cucumber</groupId>
     <artifactId>cucumber-java</artifactId>
@@ -84,4 +102,5 @@
 </dependency>
 
 </dependencies>
+
 </project>
