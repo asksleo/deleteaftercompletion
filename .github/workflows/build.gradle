@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.8.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'io.cucumber:cucumber-java:7.20.1'
+    testImplementation 'io.cucumber:cucumber-junit:7.20.1'
+    testImplementation 'io.qameta.allure:allure-cucumber7-jvm:2.23.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+allure {
+    version = '2.13.9'
+    autoconfigure = true
+}
