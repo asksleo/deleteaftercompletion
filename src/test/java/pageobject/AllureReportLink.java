@@ -18,7 +18,7 @@ public class AllureReportLink {
     public static void main(String[] args) {
         String reportUrl = "http://192.168.1.43:49163/index.html";
         int totalTests = getTotalExecutedTests(reportUrl);
-        System.out.println("Total executed tests f: " + totalTests);
+        System.out.println("Total executed tests for now: " + totalTests);
     }
 
     public static int getTotalExecutedTests(String allureReportUrl) {
