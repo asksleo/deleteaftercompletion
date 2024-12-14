@@ -69,4 +69,4 @@ jobs:
           authToken: ${{ secrets.GITHUB_TOKEN }}
           context: 'Link to Allure report'
           state: ${{ steps.tests.outcome == 'success' && 'success' || 'failure' }}
-          target_url: https://asksleo.github.io/deleteaftercompletion/${{ github.run_number }}
+          target_url: https://asksleo.github.io/deleteaftercompletion/
