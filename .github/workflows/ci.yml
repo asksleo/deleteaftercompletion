@@ -1,0 +1,40 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/*'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Run Maven Build
+        run: mvn clean install
+
+      - name: Run Cucumber Tests
+        run: mvn test -Dcucumber.options="--plugin html:target/cucumber-html-report"
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: allure-report
+          path: target/cucumber-html-report
+
+      - name: Send Report to Slack
+        uses: slackapi/slack-github-action@v1.0.0
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          text: "Here is the latest Allure report: [Link to Allure report]"
+          attachments: "Link to Allure report"
