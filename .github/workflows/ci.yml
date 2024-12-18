@@ -26,19 +26,15 @@ jobs:
       - name: Run Cucumber Tests
         run: mvn test -Dcucumber.options="--plugin html:target/cucumber-html-report"
 
-      - name: Upload Test Reports
+      - name: Upload Allure Report
         uses: actions/upload-artifact@v2
         with:
-          name: cucumber-report
+          name: allure-report
           path: target/cucumber-html-report
 
-      - name: Set GitHub Status
-        uses: Sibz/github-status-action@v1.1.6
+      - name: Send Report to Slack
+        uses: slackapi/slack-github-action@v1.0.0
         with:
-          authToken: ${{ secrets.GITHUB_TOKEN }}
-          context: Link to Allure report
-          state: failure
-          target_url: https://asksleo.github.io/deleteaftercompletion/4
-          owner: asksleo
-          repo: deleteaftercompletion
-          sha: ${{ github.sha }}
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          text: "Here is the latest Allure report: [Link to Allure report]"
+          attachments: "Link to Allure report"
