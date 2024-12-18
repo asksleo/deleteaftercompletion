@@ -7,6 +7,8 @@ public class karan {
         System.out.println("karan kuamr one");
         System.out.println("karan kuamr one");
         System.out.println("karan kuamr one");
+        System.out.println("karan kuamr one");
+        System.out.println("karan kuamr one");
 
     }
 }
