@@ -73,6 +73,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>slack-ctrf</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
             <!-- jsoup HTML parser library @ https://jsoup.org/ -->
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>

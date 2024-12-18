@@ -1,0 +1,44 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/*'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Run Maven Build
+        run: mvn clean install
+
+      - name: Run Cucumber Tests
+        run: mvn test -Dcucumber.options="--plugin html:target/cucumber-html-report"
+
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: cucumber-report
+          path: target/cucumber-html-report
+
+      - name: Set GitHub Status
+        uses: Sibz/github-status-action@v1.1.6
+        with:
+          authToken: ${{ secrets.GITHUB_TOKEN }}
+          context: Link to Allure report
+          state: failure
+          target_url: https://asksleo.github.io/deleteaftercompletion/4
+          owner: asksleo
+          repo: deleteaftercompletion
+          sha: ${{ github.sha }}
