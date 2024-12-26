@@ -72,11 +72,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.github.alexshamrai/junit-ctrf-extension -->
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>slack-ctrf</artifactId>
-            <version>1.0.0</version>
+            <groupId>io.github.alexshamrai</groupId>
+            <artifactId>junit-ctrf-extension</artifactId>
+            <version>0.2.1</version>
         </dependency>
+
 
         <dependency>
             <!-- jsoup HTML parser library @ https://jsoup.org/ -->
