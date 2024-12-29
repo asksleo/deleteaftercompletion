@@ -8,7 +8,7 @@ public class Compar {
 
 	@Then("print the statement")
 	public void print_the_statement() {
-
+		System.out.println("System.is.launched");
 
 	}
 }
