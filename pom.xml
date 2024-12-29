@@ -2,7 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>deleteaftercompletion</groupId>
   <artifactId>deleteaftercompletion</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
+
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -72,20 +73,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.github.alexshamrai/junit-ctrf-extension -->
-        <dependency>
-            <groupId>io.github.alexshamrai</groupId>
-            <artifactId>junit-ctrf-extension</artifactId>
-            <version>0.2.1</version>
-        </dependency>
-
-
-        <dependency>
-            <!-- jsoup HTML parser library @ https://jsoup.org/ -->
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.18.3</version>
-        </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>

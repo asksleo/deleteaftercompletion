@@ -8,7 +8,6 @@ utils\Testcontextsetup.class
 stepdefinition\TopLinks.class
 pageobject\AllureReportParser$Summary.class
 utils\GeneralUtils.class
-pageobject\AllureReportLink.class
 utils\TestBase.class
 pageobject\Landingpage.class
 stepdefinition\LaunchAUR.class

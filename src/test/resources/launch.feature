@@ -1,6 +1,6 @@
 @homepage
 Feature: I want to launch an application
-@landingpage
+@landingpage2
 Scenario: Given the url , launch an application
 Given I have the url and launch the browser
 When compare the url
