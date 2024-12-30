@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="4" time="1.445">
+    <testcase classname="I wanted to launch an application" name="user on landing page and hit the toplinks url" time="0.703">
+        <system-out><![CDATA[Given user visited the landing page.........................................passed
+When user hit the toplinks menu button......................................passed
+Then user landed on toplinks page...........................................passed
+]]></system-out>
+    </testcase>
+    <testcase classname="I have to launch an application" name="Given the url , launch an application" time="0">
+        <system-out><![CDATA[Given I have the url and launch the browser.................................passed
+When compare the url........................................................passed
+Then print the statement....................................................passed
+]]></system-out>
+    </testcase>
+    <testcase classname="I want to launch an application" name="Given the url , launch an application" time="0.015">
+        <system-out><![CDATA[Given I have the url and launch the browser.................................passed
+When compare the url........................................................passed
+Then print the statement....................................................passed
+]]></system-out>
+    </testcase>
+    <testcase classname="I want to launch an application" name="user on landing page and hit the toplinks url" time="0">
+        <system-out><![CDATA[Given user visited the landing page.........................................passed
+When user hit the toplinks menu button......................................passed
+Then user landed on toplinks page...........................................passed
+]]></system-out>
+    </testcase>
+</testsuite>

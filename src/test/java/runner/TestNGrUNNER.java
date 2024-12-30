@@ -7,9 +7,8 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features="src/test/resources",
+@CucumberOptions(publish=true,features="src/test/resources",
         glue="stepdefinition"
-
 )
 public class TestNGrUNNER  {
 	
