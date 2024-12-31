@@ -1,5 +1,5 @@
 
-name: Test summary example
+name: Test karan
 on:
   push:
     branches: [ "karan" ]
