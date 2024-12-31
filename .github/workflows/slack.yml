@@ -8,7 +8,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Slack Notification
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: #spm-qa-automation
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          # SLACK_CHANNEL: #karan ku
           SLACK_MESSAGE: 'Auto Test Run Started :rocket:'
         uses: rtCamp/action-slack-notify@v2
