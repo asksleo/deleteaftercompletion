@@ -20,7 +20,7 @@ jobs:
     - run: pm2 restart app-name
     
   testing:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
