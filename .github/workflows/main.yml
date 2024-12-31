@@ -1,9 +1,11 @@
-name: Node.js CI
+
+name: Test summary example
 on:
   push:
     branches: [ "karan" ]
   pull_request:
     branches: [ "karan" ]
+    
 jobs:
   build:
     runs-on: self-hosted
@@ -16,3 +18,22 @@ jobs:
     - run: npm install
     - run: npm test
     - run: pm2 restart app-name
+    
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npx tsc
+      - name: Send Slack Notification
+        run: npx slack-ctrf results ctrf/ctrf-report.json
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Send Slack Notification
+        run: npx slack-ctrf flaky ctrf/ctrf-report.json
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
