@@ -1,4 +1,4 @@
-@homepage1
+@homepage3
 Feature: I wanted to launch an application
 @toplinksk
 Scenario:  user on landing page and hit the toplinks url

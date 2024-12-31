@@ -1,12 +1,24 @@
+
 name: Test summary example
 on:
   push:
-    branches:
-      - '**'
+    branches: [ "karan" ]
   pull_request:
-    branches:
-      - '**'
+    branches: [ "karan" ]
+    
 jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16.x
+    - run: npm install
+    - run: npm test
+    - run: pm2 restart app-name
+    
   testing:
     runs-on: ubuntu-latest
     steps:
@@ -24,3 +36,4 @@ jobs:
         run: npx slack-ctrf flaky ctrf/ctrf-report.json
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+

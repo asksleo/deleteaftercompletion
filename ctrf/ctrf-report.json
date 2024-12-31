@@ -1,0 +1,39 @@
+{
+  "results": {
+    "tool": {
+      "name": "junit-to-ctrf"
+    },
+    "summary": {
+      "tests": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "pending": 0,
+      "other": 0,
+      "start": 0,
+      "stop": 0
+    },
+    "tests": [
+      {
+        "name": "io.cucumber.core.plugin.JUnitFormatter: user on landing page and hit the toplinks url",
+        "status": "passed",
+        "duration": 703
+      },
+      {
+        "name": "io.cucumber.core.plugin.JUnitFormatter: Given the url , launch an application",
+        "status": "passed",
+        "duration": 0
+      },
+      {
+        "name": "io.cucumber.core.plugin.JUnitFormatter: Given the url , launch an application",
+        "status": "passed",
+        "duration": 15
+      },
+      {
+        "name": "io.cucumber.core.plugin.JUnitFormatter: user on landing page and hit the toplinks url",
+        "status": "passed",
+        "duration": 0
+      }
+    ]
+  }
+}
