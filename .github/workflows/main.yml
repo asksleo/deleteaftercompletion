@@ -2,7 +2,7 @@ name: Test karan
 
 on:
   workflow_run:
-    workflows: ["Java CI with Maven Regression"]
+    workflows: ["Cucumber Tests"]
     types: [completed]
 
 jobs:
