@@ -38,12 +38,12 @@ jobs:
         id: tests
         run: mvn clean -D surefire.rerunFailingTestsCount=2 test -D cucumber.filter.tags=@toplinksk1
 
-      - name: Publish Cucumber Report artifact
-        if: always()
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: cucumber-report
-          path: target/cucumber-report/cucumber.html
+#      - name: Publish Cucumber Report artifact
+#        if: always()
+#        uses: actions/upload-artifact@v3.1.0
+#        with:
+#          name: cucumber-report
+#          path: target/cucumber-report/cucumber.html
 
       - name: Publish Allure Report artifact
         if: always()
@@ -94,12 +94,12 @@ jobs:
         id: tests
         run: mvn clean -D surefire.rerunFailingTestsCount=2 test -D cucumber.filter.tags=@toplinksk2
 
-      - name: Publish Cucumber Report artifact
-        if: always()
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: cucumber-report
-          path: target/cucumber-report/cucumber.html
+#      - name: Publish Cucumber Report artifact
+#        if: always()
+#        uses: actions/upload-artifact@v3.1.0
+#        with:
+#          name: cucumber-report
+#          path: target/cucumber-report/cucumber.html
 
       - name: Publish Allure Report artifact
         if: always()
@@ -149,12 +149,12 @@ jobs:
         id: tests
         run: mvn clean -D surefire.rerunFailingTestsCount=2 test -D cucumber.filter.tags=@toplinksk3
 
-      - name: Publish Cucumber Report artifact
-        if: always()
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: cucumber-report
-          path: target/cucumber-report/cucumber.html
+#      - name: Publish Cucumber Report artifact
+#        if: always()
+#        uses: actions/upload-artifact@v3.1.0
+#        with:
+#          name: cucumber-report
+#          path: target/cucumber-report/cucumber.html
 
       - name: Publish Allure Report artifact
         if: always()
@@ -204,12 +204,12 @@ jobs:
         id: tests
         run: mvn clean -D surefire.rerunFailingTestsCount=2 test -D cucumber.filter.tags=@toplinksk4
 
-      - name: Publish Cucumber Report artifact
-        if: always()
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: cucumber-report
-          path: target/cucumber-report/cucumber.html
+#      - name: Publish Cucumber Report artifact
+#        if: always()
+#        uses: actions/upload-artifact@v3.1.0
+#        with:
+#          name: cucumber-report
+#          path: target/cucumber-report/cucumber.html
 
       - name: Publish Allure Report artifact
         if: always()
@@ -259,12 +259,12 @@ jobs:
         id: tests
         run: mvn clean -D surefire.rerunFailingTestsCount=2 test -D cucumber.filter.tags=@toplinksk5
 
-      - name: Publish Cucumber Report artifact
-        if: always()
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: cucumber-report
-          path: target/cucumber-report/cucumber.html
+#      - name: Publish Cucumber Report artifact
+#        if: always()
+#        uses: actions/upload-artifact@v3.1.0
+#        with:
+#          name: cucumber-report
+#          path: target/cucumber-report/cucumber.html
 
       - name: Publish Allure Report artifact
         if: always()
@@ -314,12 +314,12 @@ jobs:
         id: tests
         run: mvn clean -D surefire.rerunFailingTestsCount=2 test -D cucumber.filter.tags=@toplinksk6
 
-      - name: Publish Cucumber Report artifact
-        if: always()
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: cucumber-report
-          path: target/cucumber-report/cucumber.html
+#      - name: Publish Cucumber Report artifact
+#        if: always()
+#        uses: actions/upload-artifact@v3.1.0
+#        with:
+#          name: cucumber-report
+#          path: target/cucumber-report/cucumber.html
 
       - name: Publish Allure Report artifact
         if: always()
@@ -369,12 +369,12 @@ jobs:
         id: tests
         run: mvn clean -D surefire.rerunFailingTestsCount=2 test -D cucumber.filter.tags=@toplinksk7
 
-      - name: Publish Cucumber Report artifact
-        if: always()
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: cucumber-report
-          path: target/cucumber-report/cucumber.html
+#      - name: Publish Cucumber Report artifact
+#        if: always()
+#        uses: actions/upload-artifact@v3.1.0
+#        with:
+#          name: cucumber-report
+#          path: target/cucumber-report/cucumber.html
 
       - name: Publish Allure Report artifact
         if: always()

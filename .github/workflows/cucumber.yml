@@ -42,9 +42,6 @@ jobs:
       - name: Run Cucumber tests
         run: mvn test -Dcucumber.options="--plugin pretty --plugin junit:target/cucumber-report/cucumber.xml"
 
-      - name: List report directory contents
-        run: ls -la target/cucumber-report/
-
       - name: Upload Cucumber test results
         uses: actions/upload-artifact@v3
         with:
