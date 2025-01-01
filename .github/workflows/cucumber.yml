@@ -30,11 +30,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      - name: Clean target directory
+        run: mvn clean
+
       - name: Install Maven dependencies
         run: mvn install -DskipTests
 
       - name: Run Cucumber tests
-        run: mvn test -Dcucumber.options="--plugin junit:target/cucumber-report/cucumber.xml"
+        run: mvn test -Dcucumber.options="--plugin pretty --plugin junit:target/cucumber-report/cucumber.xml"
 
       - name: Upload Cucumber test results
         uses: actions/upload-artifact@v3
