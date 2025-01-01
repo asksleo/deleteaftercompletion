@@ -3,10 +3,10 @@ name: Cucumber Tests
 on:
   push:
     branches:
-      - main
+      - karan
   pull_request:
     branches:
-      - main
+      - karan
 
 jobs:
   test:
