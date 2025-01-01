@@ -36,6 +36,9 @@ jobs:
       - name: Install Maven dependencies
         run: mvn install -DskipTests
 
+      - name: Clean report directory
+        run: rm -rf target/cucumber-report/*
+
       - name: Run Cucumber tests
         run: mvn test -Dcucumber.options="--plugin pretty --plugin junit:target/cucumber-report/cucumber.xml"
 
