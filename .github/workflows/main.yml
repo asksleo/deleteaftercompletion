@@ -50,7 +50,7 @@ jobs:
 #      - name: Build
 #        run: npm test
       - name: Convert
-        run: npx junit-to-ctrf ctrf/ctrf-report.json
+        run: npx junit-to-ctrf target/cucumber-report/cucumber.xml
 
       - name: Send Slack Notification (Results)
         run: npx slack-ctrf results ctrf/ctrf-report.json
