@@ -34,7 +34,7 @@ jobs:
         run: mvn install -DskipTests
 
       - name: Run Cucumber tests
-        run: mvn test -Dcucumber.options="--plugin junit:target/cucumber.xml"
+        run: mvn test -Dcucumber.options="--plugin junit:target/cucumber-report/cucumber.xml"
 
       - name: Upload Cucumber test results
         uses: actions/upload-artifact@v3
