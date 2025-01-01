@@ -1,0 +1,22 @@
+{
+  "name": "deleteaftercompletion",
+  "version": "1.0.0",
+  "description": "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",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asksleo/deleteaftercompletion.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asksleo/deleteaftercompletion/issues"
+  },
+  "homepage": "https://github.com/asksleo/deleteaftercompletion#readme",
+  "dependencies": {
+    "typescript": "^5.7.2"
+  }
+}
