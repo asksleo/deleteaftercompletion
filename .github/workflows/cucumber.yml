@@ -42,7 +42,11 @@ jobs:
       - name: Run Cucumber tests
         run: mvn test -Dcucumber.options="--plugin pretty --plugin junit:target/cucumber-report/cucumber.xml"
 
+      - name: Check if report exists
+        run: ls -l target/cucumber-report/cucumber.xml
+
       - name: Upload Cucumber test results
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: cucumber-results
