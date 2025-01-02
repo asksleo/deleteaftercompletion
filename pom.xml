@@ -36,6 +36,12 @@
         <opencsv.version>5.9</opencsv.version>
         <nettycodec.version>4.1.93.Final</nettycodec.version>
     </properties>
+    <repositories>
+        <repository>
+            <id>cucumber-repo</id>
+            <url>https://repo.cucumber.io/repository/maven-releases/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!--JUnit5-->
@@ -98,11 +104,7 @@
             <artifactId>selenide</artifactId>
             <version>${selenide.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>${cucumber.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-core</artifactId>
@@ -287,7 +289,22 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
+            <plugin>
+                    <groupId>io.cucumber</groupId>
+                    <artifactId>cucumber-java</artifactId>
+                    <version>${cucumber.version}</version>
+                <executions>
+                    <execution>
+                        <id>execute-tests</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <cucumberOptions>--plugin junit:target/cucumber-report/cucumber.xml</cucumberOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
