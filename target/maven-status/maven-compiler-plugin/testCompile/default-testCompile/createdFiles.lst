@@ -1,12 +1,3 @@
-pageObjects\OffersPage.class
-stepDefinitions\LandingPageStepDefinition.class
-utils\TestContextSetup.class
 cucumberOptions\JunitTestRunnerTest.class
-pageObjects\CheckoutPage.class
-pageObjects\PageObjectManager.class
-utils\GenericUtils.class
-stepDefinitions\CheckoutPageStepDefinition.class
-stepDefinitions\Hooks.class
-pageObjects\LandingPage.class
-utils\TestBase.class
-stepDefinitions\OfferPageStepDefinition.class
+stepDefinitions\Toplink2.class
+stepDefinitions\Toplinks.class

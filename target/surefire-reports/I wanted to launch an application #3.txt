@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: I wanted to launch an application #3
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.547 s - in I wanted to launch an application #3
