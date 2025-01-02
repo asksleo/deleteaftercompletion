@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<testsuite errors="0" failures="0" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="3" time="0.76">
-    <testcase classname="I wanted to launch an application" name="user on landing page and hit the toplinks url" time="0.247">
+<testsuite errors="0" failures="1" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="3" time="0.759">
+    <testcase classname="I wanted to launch an application" name="user on landing page and hit the toplinks url" time="0.043">
         <system-out><![CDATA[Given user visited the landing page.........................................passed
 When user hit the toplinks menu button......................................passed
 Then user landed on toplinks page...........................................passed
@@ -12,8 +12,13 @@ When user hit the toplinks menu button......................................pass
 Then user landed on toplinks page...........................................passed
 ]]></system-out>
     </testcase>
-    <testcase classname="I wanted to launch an application" name="user on landing page and hit the toplinks url" time="0.244">
-        <system-out><![CDATA[Then user landed on  page...................................................passed
-]]></system-out>
+    <testcase classname="I wanted to launch an application" name="user on landing page and hit the toplinks url" time="0.232">
+        <failure message="" type="java.lang.NullPointerException"><![CDATA[Then user landed on  page...................................................failed
+
+StackTrace:
+java.lang.NullPointerException
+	at stepDefinitions.Toplink2.user_landed_on_toplinks_page(Toplink2.java:10)
+	at ✽.user landed on  page(file:///C:/Users/karan/IdeaProjects/karan/deleteaftercompletion/src/test/java/features/fake3.feature:5)
+]]></failure>
     </testcase>
 </testsuite>
