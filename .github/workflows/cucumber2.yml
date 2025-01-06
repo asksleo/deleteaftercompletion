@@ -1,9 +1,13 @@
-name: Cucumber Test 36
+name: Cucumber Tests
 
 on:
   push:
     branches:
       - karan
+  pull_request:
+    branches:
+      - karan
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -31,6 +35,22 @@ jobs:
 
       - name: Install Maven dependencies
         run: mvn install -DskipTests
+
+      - name: Clean report directory
+        run: rm -rf target/*
+
+      - name: Run Cucumber tests
+        run: mvn test -Dcucumber.options="--plugin pretty --plugin json:target/cucumber.json"
+
+      - name: Check if report exists
+        run: ls -l target/cucumber.json
+
+      - name: Upload Cucumber test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cucumber-results
+          path: target/cucumber-report/cucumber.xml
 
       - name: Send Cucumber report to Slack
         uses: slack/webhook@v1
