@@ -1,47 +1,47 @@
-name: Test karan
-
-on:
-  workflow_run:
-    workflows: ["Cucumber Tests"]
-    types: [completed]
-
-jobs:
-  testing:
-    runs-on: ubuntu-latest
-#    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    if: always()
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Remove previous report
-        run: rm -f ctrf/*
-
+#name: Test karan
+#
+#on:
+#  workflow_run:
+#    workflows: ["Cucumber Tests"]
+#    types: [completed]
+#
+#jobs:
+#  testing:
+#    runs-on: ubuntu-latest
+##    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+#    if: always()
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#
+#      - name: Set up Node.js
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: '14'
+#
+#      - name: Install dependencies
+#        run: npm install
+#
+#      - name: Remove previous report
+#        run: rm -f ctrf/*
+#
+##      - name: Build
+##        run: npm test
+#
+#      - name: List files
+#        run: ls -R
+#
 #      - name: Build
-#        run: npm test
-
-      - name: List files
-        run: ls -R
-
-      - name: Build
-        run: npx tsc
-
-      - name: Convert
-        run: npx junit-to-ctrf target/cucumber-report/cucumber.xml
-
-      - name: Send Slack Notification (Results)
-        run: npx slack-ctrf results ctrf/ctrf-report.json
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      - name: Send Slack Notification (Flaky)
-        run: npx slack-ctrf flaky ctrf/ctrf-report.json
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+#        run: npx tsc
+#
+#      - name: Convert
+#        run: npx junit-to-ctrf target/cucumber-report/cucumber.xml
+#
+#      - name: Send Slack Notification (Results)
+#        run: npx slack-ctrf results ctrf/ctrf-report.json
+#        env:
+#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+#      - name: Send Slack Notification (Flaky)
+#        run: npx slack-ctrf flaky ctrf/ctrf-report.json
+#        env:
+#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -1,42 +1,42 @@
-name: Send Cucumber Execution Results to Slack
-
-on:
-  workflow_run:
-    workflows: ["Cucumber Tests"]
-    types: [completed]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # Specify the Node.js version you need
-
-      - name: Install dependencies
-        run: |
-          npm install -g cucumber
-          npm install
-
-      - name: Run Cucumber tests
-        id: run-tests
-        run: |
-          TEST_OUTPUT=$(cucumber features)
-          echo "$TEST_OUTPUT" > cucumber_output.txt
-          echo "::set-output name=output::$TEST_OUTPUT"
-
-      - name: Send results to Slack
-        uses: slackapi/slack-github-action@v2.0.0
-        with:
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-          payload: |
-            {
-              "attachments": [
-                {
-                  "title": "Cucumber Test Results",
-                  "text": "${{ steps.run-tests.outputs.output }}",
-                  "color": "#36a64f"
-                }
-              ]
-            }
+#name: Send Cucumber Execution Results to Slack
+#
+#on:
+#  workflow_run:
+#    workflows: ["Cucumber Tests"]
+#    types: [completed]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Set up Node.js
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: '14'  # Specify the Node.js version you need
+#
+#      - name: Install dependencies
+#        run: |
+#          npm install -g cucumber
+#          npm install
+#
+#      - name: Run Cucumber tests
+#        id: run-tests
+#        run: |
+#          TEST_OUTPUT=$(cucumber features)
+#          echo "$TEST_OUTPUT" > cucumber_output.txt
+#          echo "::set-output name=output::$TEST_OUTPUT"
+#
+#      - name: Send results to Slack
+#        uses: slackapi/slack-github-action@v2.0.0
+#        with:
+#          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+#          payload: |
+#            {
+#              "attachments": [
+#                {
+#                  "title": "Cucumber Test Results",
+#                  "text": "${{ steps.run-tests.outputs.output }}",
+#                  "color": "#36a64f"
+#                }
+#              ]
+#            }
