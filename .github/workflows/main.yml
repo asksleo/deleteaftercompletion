@@ -21,6 +21,15 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Remove previous report
+        run: rm -f
+
+      - name: Build
+        run: npm test
+
+      - name: List files
+        run: ls -R
 #
 #      - name: Build
 #        run: npm test
