@@ -1,4 +1,4 @@
-name: Maven Testertesr
+name: Maven Testerter12
 on:
   push:
     branches:
@@ -36,25 +36,9 @@ jobs:
 
       - name: Run Maven tests and capture output
         id: maven_tests
-        run: |
-          mvn test | tee maven_output.txt
-          TEST_RESULTS=$(grep -A 2 'Results:' maven_output.txt | awk '{if ($0 !~ /^
+        run: mvn test | tee maven_output.txt
 
-  \[INFO\]
-  
-  /) print}')
-  BUILD_SUMMARY=$(grep 'BUILD SUCCESS' maven_output.txt | awk '{print substr($0, index($0,$3))}')
-  TOTAL_TIME=$(grep 'Total time' maven_output.txt | awk '{print substr($0, index($0,$3))}')
-  FINISHED_AT=$(grep 'Finished at' maven_output.txt | awk '{print substr($0, index($0,$3))}')
-  FORMATTED_OUTPUT="*Test Results*\n"
-  FORMATTED_OUTPUT+="${TEST_RESULTS}\n"
-  FORMATTED_OUTPUT+="*Build:* ${BUILD_SUMMARY}\n"
-  FORMATTED_OUTPUT+="*Duration:* ${TOTAL_TIME}\n"
-  FORMATTED_OUTPUT+="*Finished at:* ${FINISHED_AT}\n"
-FORMATTED_OUTPUT=$(echo "${FORMATTED_OUTPUT}" | sed 's/time: //g' | sed 's/at: //g')
-  echo "${FORMATTED_OUTPUT}" > formatted_report.txt
-  cat formatted_report.txt
-- name: Send Maven results to Slack
-  run: |
-    SLACK_MESSAGE=$(cat formatted_report.txt)
-    curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"${SLACK_MESSAGE}\"}" ${{ secrets.SLACK_WEBHOOK }}
+      - name: Format and send Maven results to Slack
+        run: bash .github/scripts/format_and_send_results.sh
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
