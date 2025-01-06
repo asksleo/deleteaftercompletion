@@ -8,7 +8,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: always()
 
     steps:
       - name: Checkout code
@@ -41,6 +40,7 @@ jobs:
         run: chmod +x send_report.sh
 
       - name: Send test results to Slack
+        if: always() # Ensure this step runs regardless of previous step outcomes
         run: ./send_report.sh ${{ secrets.SLACK_WEBHOOK }}
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
