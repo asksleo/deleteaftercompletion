@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/slack-test-reporter" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/slack-test-reporter/slack-test-reporter" vcs="Git" />
   </component>
 </project>
