@@ -1,5 +1,4 @@
-name: Cucumber Testfour
-
+name: Cucumber JSON
 on:
   push:
     branches:
@@ -47,53 +46,19 @@ jobs:
           name: cucumber-report
           path: target/cucumber.json
 
-      - name: Parse JSON report
-        id: parse_json
-        run: |
-          features=$(jq '.features | length' target/cucumber.json)
-          passedFeatures=$(jq '.features[] | select(.status == "passed") | length' target/cucumber.json)
-          failedFeatures=$(jq '.features[] | select(.status == "failed") | length' target/cucumber.json)
-          echo "features=$features" >> $GITHUB_ENV
-          echo "passedFeatures=$passedFeatures" >> $GITHUB_ENV
-          echo "failedFeatures=$failedFeatures" >> $GITHUB_ENV
+      - name: Compile Formatter
+        run: javac src/test/java/utils/CucumberReportParser.java
 
-      - name: Debug parsed values
+      - name: Format and Output Test Results
+        id: format_results
         run: |
-          echo "Total Features: $features"
-          echo "Passed Features: $passedFeatures"
-          echo "Failed Features: $failedFeatures"
+          java -cp src/test/java utils.CucumberReportParser > formatted_report.txt
+          formatted_report=$(cat formatted_report.txt)
+          echo "::set-output name=formatted_report::$formatted_report"
 
       - name: Send Cucumber report to Slack
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         with:
-          message: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Cucumber Test Report"
-                  }
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Total Features:* ${{ env.features }}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Passed Features:* ${{ env.passedFeatures }}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Failed Features:* ${{ env.failedFeatures }}"
-                    }
-                  ]
-                }
-              ]
-            }
+          message: "${{ steps.format_results.outputs.formatted_report }}"
