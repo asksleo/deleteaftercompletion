@@ -1,4 +1,4 @@
-name: Cucumber Test
+name: Cucumber TestFor
 on:
   push:
     branches:
@@ -31,41 +31,39 @@ jobs:
           path: target/cucumber.json
 
       - name: Send Cucumber report to Slack
-        uses: 8398a7/action-slack@v3 # using a more specific Slack action
+        uses: rtCamp/action-slack-notify@v2
         with:
-          status: always
-          fields: workflow,job,commit,repo,ref,author
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          message: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Cucumber Test Report"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Total Features:* ${features}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Passed Features:* ${passedFeatures}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Failed Features:* ${failedFeatures}"
+                    }
+                  ]
+                }
+              ]
+            }
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           features: $(jq '.features | length' target/cucumber.json)
           passedFeatures: $(jq '.features[] | select(.status == "passed") | length' target/cucumber.json)
           failedFeatures: $(jq '.features[] | select(.status == "failed") | length' target/cucumber.json)
-        message: |
-          {
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "Cucumber Test Report"
-                }
-              },
-              {
-                "type": "section",
-                "fields": [
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Total Features:* ${features}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Passed Features:* ${passedFeatures}"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*Failed Features:* ${failedFeatures}"
-                  }
-                ]
-              }
-            ]
-          }
