@@ -1,9 +1,9 @@
 name: Run Cucumber Tests and Send Results to Slack
 
 on:
-  push:
-    branches:
-      - karan
+  workflow_run:
+    workflows: ["Cucumber Tests"]
+    types: [completed]
 
 jobs:
   test:
