@@ -42,26 +42,17 @@ jobs:
           BUILD_SUMMARY=$(grep 'BUILD SUCCESS' maven_output.txt)
           TOTAL_TIME=$(grep 'Total time' maven_output.txt)
           FINISHED_AT=$(grep 'Finished at' maven_output.txt)
-          echo "TEST_RESULTS=$TEST_RESULTS" >> $GITHUB_ENV
-          echo "BUILD_SUMMARY=$BUILD_SUMMARY" >> $GITHUB_ENV
-          echo "TOTAL_TIME=$TOTAL_TIME" >> $GITHUB_ENV
-          echo "FINISHED_AT=$FINISHED_AT" >> $GITHUB_ENV
-
-      - name: Format and Output Test Results
-        id: format_results
-        run: |
           FORMATTED_OUTPUT="Test Results\n"
-          FORMATTED_OUTPUT+="${{ env.TEST_RESULTS }}\n"
-          FORMATTED_OUTPUT+="Build: ${{ env.BUILD_SUMMARY }}\n"
-          FORMATTED_OUTPUT+="Duration: ${{ env.TOTAL_TIME }}\n"
-          FORMATTED_OUTPUT+="Finished at: ${{ env.FINISHED_AT }}\n"
+          FORMATTED_OUTPUT+="$TEST_RESULTS\n"
+          FORMATTED_OUTPUT+="Build: $BUILD_SUMMARY\n"
+          FORMATTED_OUTPUT+="Duration: $TOTAL_TIME\n"
+          FORMATTED_OUTPUT+="Finished at: $FINISHED_AT\n"
           echo "$FORMATTED_OUTPUT" > formatted_report.txt
           cat formatted_report.txt
-          echo "::set-output name=formatted_report::$FORMATTED_OUTPUT"
 
       - name: Send Maven results to Slack
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         with:
-          message: "${{ steps.format_results.outputs.formatted_report }}"
+          message: "$(cat formatted_report.txt)"
