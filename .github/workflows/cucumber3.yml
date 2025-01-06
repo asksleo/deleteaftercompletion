@@ -49,7 +49,7 @@ jobs:
       - name: Send Cucumber report to Slack
         uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           features: $(jq '.features | length' target/cucumber.json)
           passedFeatures: $(jq '.features[] | select(.status == "passed") | length' target/cucumber.json)
           failedFeatures: $(jq '.features[] | select(.status == "failed") | length' target/cucumber.json)
