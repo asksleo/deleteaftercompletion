@@ -33,7 +33,7 @@ jobs:
           javac src/test/java/utils/CucumberReportParser.java
           java src/test/java/utils/CucumberReportParser.java
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - name: Send Maven results to Slack
         run: |
