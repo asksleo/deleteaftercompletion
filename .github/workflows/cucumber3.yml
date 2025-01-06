@@ -39,17 +39,25 @@ jobs:
         run: |
           mvn test | tee maven_output.txt
           TEST_RESULTS=$(grep -A 2 'Results:' maven_output.txt | sed 's/^
-          \[INFO\]
+
+         \[INFO\]
+
           //g')
           BUILD_SUMMARY=$(grep 'BUILD SUCCESS' maven_output.txt | sed 's/^
-          \[INFO\]
+          
+         \[INFO\]
+          
           //g')
           TOTAL_TIME=$(grep 'Total time' maven_output.txt | sed 's/^
+          
           \[INFO\]
-          //g')
+          
+           //g')
           FINISHED_AT=$(grep 'Finished at' maven_output.txt | sed 's/^
+          
           \[INFO\]
-          //g')
+          
+           //g')
           FORMATTED_OUTPUT="*Test Results*\n"
           FORMATTED_OUTPUT+="${TEST_RESULTS}\n"
           FORMATTED_OUTPUT+="*Build:* ${BUILD_SUMMARY}\n"
