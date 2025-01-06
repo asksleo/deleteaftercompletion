@@ -1,4 +1,5 @@
 name: Cucumber Testfour
+
 on:
   push:
     branches:
@@ -46,13 +47,26 @@ jobs:
           name: cucumber-report
           path: target/cucumber.json
 
+      - name: Parse JSON report
+        id: parse_json
+        run: |
+          features=$(jq '.features | length' target/cucumber.json)
+          passedFeatures=$(jq '.features[] | select(.status == "passed") | length' target/cucumber.json)
+          failedFeatures=$(jq '.features[] | select(.status == "failed") | length' target/cucumber.json)
+          echo "features=$features" >> $GITHUB_ENV
+          echo "passedFeatures=$passedFeatures" >> $GITHUB_ENV
+          echo "failedFeatures=$failedFeatures" >> $GITHUB_ENV
+
+      - name: Debug parsed values
+        run: |
+          echo "Total Features: $features"
+          echo "Passed Features: $passedFeatures"
+          echo "Failed Features: $failedFeatures"
+
       - name: Send Cucumber report to Slack
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          features: $(jq '.features | length' target/cucumber.json)
-          passedFeatures: $(jq '.features[] | select(.status == "passed") | length' target/cucumber.json)
-          failedFeatures: $(jq '.features[] | select(.status == "failed") | length' target/cucumber.json)
         with:
           message: |
             {
@@ -69,15 +83,15 @@ jobs:
                   "fields": [
                     {
                       "type": "mrkdwn",
-                      "text": "*Total Features:* ${features}"
+                      "text": "*Total Features:* ${{ env.features }}"
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Passed Features:* ${passedFeatures}"
+                      "text": "*Passed Features:* ${{ env.passedFeatures }}"
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "*Failed Features:* ${failedFeatures}"
+                      "text": "*Failed Features:* ${{ env.failedFeatures }}"
                     }
                   ]
                 }
