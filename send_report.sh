@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Debug: Print the content of the cucumber.json file
-echo "Debug: Content of cucumber.json"
-cat target/cucumber.json
+# Debug: Print the content of the cucumber.xml file
+echo "Debug: Content of cucumber.xml"
+cat target/cucumber.xml
 
-# Parse Cucumber JSON report
-passedTests=$(jq '[.[] | .elements | .[] | .steps | .[] | select(.result.status == "passed")] | length' target/cucumber.json)
-failedTests=$(jq '[.[] | .elements | .[] | .steps | .[] | select(.result.status == "failed")] | length' target/cucumber.json)
-skippedTests=$(jq '[.[] | .elements | .[] | .steps | .[] | select(.result.status == "skipped")] | length' target/cucumber.json)
+# Parse Cucumber XML report
+passedTests=$(xmllint --xpath "count(//testsuite/testcase[not(failure)])" target/cucumber.xml)
+failedTests=$(xmllint --xpath "count(//testsuite/testcase[failure])" target/cucumber.xml)
+skippedTests=$(xmllint --xpath "count(//testsuite/testcase[skipped])" target/cucumber.xml)
 
 # Debug: Print the parsed results
 echo "Debug: Parsed Results"

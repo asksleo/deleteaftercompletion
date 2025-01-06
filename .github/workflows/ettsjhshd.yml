@@ -1,9 +1,9 @@
 name: Run Cucumber Tests and Send Results to Slack
 
 on:
-  workflow_run:
-    workflows: ["Cucumber Tests"]
-    types: [completed]
+  push:
+    branches:
+      - karan
 
 jobs:
   test:
@@ -32,6 +32,9 @@ jobs:
 
       - name: Run Cucumber tests
         run: mvn test
+
+      - name: Install xmllint
+        run: sudo apt-get install -y libxml2-utils
 
       - name: Set execute permission for send_report.sh
         run: chmod +x send_report.sh
