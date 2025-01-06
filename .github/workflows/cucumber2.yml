@@ -25,7 +25,7 @@ jobs:
           cucumber --format json --out target/cucumber.json
 
       - name: Upload report to GitHub Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: cucumber-report
           path: target/cucumber.json
@@ -34,36 +34,36 @@ jobs:
         uses: slack/webhook@v1
         with:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          message: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Cucumber Test Report"
-                  }
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Total Features:* ${features}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Passed Features:* ${passedFeatures}"
-                    },
-                    {
-                      "type": "mrkdwn",
-                      "text": "*Failed Features:* ${failedFeatures}"
-                    }
-                  ]
-                }
-              ]
-            }
         env:
           features: $(jq '.features | length' target/cucumber.json)
           passedFeatures: $(jq '.features[] | select(.status == "passed") | length' target/cucumber.json)
           failedFeatures: $(jq '.features[] | select(.status == "failed") | length' target/cucumber.json)
+        message: |
+          {
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "Cucumber Test Report"
+                }
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Total Features:* ${features}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Passed Features:* ${passedFeatures}"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Failed Features:* ${failedFeatures}"
+                  }
+                ]
+              }
+            ]
+          }
