@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Remove previous report
-        run: rm -f
+        run: rm -f ctrf/*
 
       - name: Build
         run: npm test
