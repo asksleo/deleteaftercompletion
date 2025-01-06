@@ -12,7 +12,7 @@ jobs:
     if: always()
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -30,9 +30,10 @@ jobs:
 
       - name: List files
         run: ls -R
-#
-#      - name: Build
-#        run: npm test
+
+      - name: Build
+        run: npx tsc
+
       - name: Convert
         run: npx junit-to-ctrf target/cucumber-report/cucumber.xml
 
