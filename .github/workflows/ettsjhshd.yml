@@ -31,13 +31,16 @@ jobs:
         run: mvn install -DskipTests
 
       - name: Run Cucumber tests
-        run: mvn test
+        run: mvn test | tee maven_output.txt
 
       - name: Install xmllint
         run: sudo apt-get install -y libxml2-utils
 
+      - name: Set execute permission for send_report.sh
+        run: chmod +x ./send_report.sh
+
       - name: Send test results to Slack
         if: always() # Ensure this step runs regardless of previous step outcomes
-        run: bash send_report.sh ${{ secrets.SLACK_WEBHOOK }}
+        run: bash ./send_report.sh ${{ secrets.SLACK_WEBHOOK }}
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
