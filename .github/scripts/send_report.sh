@@ -1,9 +1,19 @@
 #!/bin/bash
 
+# Debug: Print the content of the cucumber.json file
+echo "Debug: Content of cucumber.json"
+cat target/cucumber.json
+
 # Parse Cucumber JSON report
-passedTests=$(jq '.features[] | .elements[] | select(.steps[].result.status=="passed")' target/cucumber.json | wc -l)
-failedTests=$(jq '.features[] | .elements[] | select(.steps[].result.status=="failed")' target/cucumber.json | wc -l)
-skippedTests=$(jq '.features[] | .elements[] | select(.steps[].result.status=="skipped")' target/cucumber.json | wc -l)
+passedTests=$(jq '[.[] | .elements | .[] | .steps | .[] | select(.result.status == "passed")] | length' target/cucumber.json)
+failedTests=$(jq '[.[] | .elements | .[] | .steps | .[] | select(.result.status == "failed")] | length' target/cucumber.json)
+skippedTests=$(jq '[.[] | .elements | .[] | .steps | .[] | select(.result.status == "skipped")] | length' target/cucumber.json)
+
+# Debug: Print the parsed results
+echo "Debug: Parsed Results"
+echo "Passed Tests: ${passedTests}"
+echo "Failed Tests: ${failedTests}"
+echo "Skipped Tests: ${skippedTests}"
 
 # Create summary in the required format
 summary="const passedTests = ${passedTests};\nconst failedTests = ${failedTests};\nconst skippedTests = ${skippedTests};"
