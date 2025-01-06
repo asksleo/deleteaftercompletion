@@ -1,4 +1,4 @@
-name: Cucumber JSON
+name: Maven Test
 on:
   push:
     branches:
@@ -34,29 +34,28 @@ jobs:
       - name: Clean report directory
         run: rm -rf target/*
 
-      - name: Run Cucumber tests
-        run: mvn test -Dcucumber.options="--plugin pretty --plugin junit:target/cucumber-report/cucumber.xml --plugin json:target/cucumber.json"
-
-      - name: Generate JSON report
-        run: mvn test -Dcucumber.options="--plugin json:target/cucumber.json"
-
-      - name: Upload report to GitHub Artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: cucumber-report
-          path: target/cucumber.json
-
-      - name: Compile Formatter
-        run: javac src/test/java/utils/CucumberReportParser.java
+      - name: Run Maven tests and capture output
+        id: maven_tests
+        run: mvn test | tee maven_output.txt
 
       - name: Format and Output Test Results
         id: format_results
         run: |
-          java -cp src/test/java utils.CucumberReportParser > formatted_report.txt
-          formatted_report=$(cat formatted_report.txt)
-          echo "::set-output name=formatted_report::$formatted_report"
+          TEST_RESULTS=$(grep -A 2 'Results:' maven_output.txt)
+          BUILD_SUMMARY=$(grep 'BUILD SUCCESS' maven_output.txt)
+          TOTAL_TIME=$(grep 'Total time' maven_output.txt)
+          FINISHED_AT=$(grep 'Finished at' maven_output.txt)
 
-      - name: Send Cucumber report to Slack
+          FORMATTED_OUTPUT="Test Results\n"
+          FORMATTED_OUTPUT+="$TEST_RESULTS\n"
+          FORMATTED_OUTPUT+="Build: $BUILD_SUMMARY\n"
+          FORMATTED_OUTPUT+="Duration: $TOTAL_TIME\n"
+          FORMATTED_OUTPUT+="Finished at: $FINISHED_AT\n"
+          echo "$FORMATTED_OUTPUT" > formatted_report.txt
+          cat formatted_report.txt
+          echo "::set-output name=formatted_report::$FORMATTED_OUTPUT"
+
+      - name: Send Maven results to Slack
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
