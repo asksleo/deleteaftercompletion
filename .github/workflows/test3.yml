@@ -5,13 +5,19 @@ on:
     workflows: ["Cucumber Tests"]
     types: [completed]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Specify the Node.js version you need
+
+      - name: Install dependencies
+        run: |
+          npm install -g cucumber
+          npm install
 
       - name: Run Cucumber tests
         id: run-tests
