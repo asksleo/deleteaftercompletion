@@ -33,6 +33,9 @@ jobs:
       - name: Run Cucumber tests
         run: mvn test
 
+      - name: Set execute permission for send_report.sh
+        run: chmod +x send_report.sh
+
       - name: Send test results to Slack
         run: ./send_report.sh ${{ secrets.SLACK_WEBHOOK }}
         env:
