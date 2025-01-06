@@ -1,0 +1,36 @@
+name: Send Cucumber Execution Results to Slack
+
+on:
+  workflow_run:
+    workflows: ["Cucumber Tests"]
+    types: [completed]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Cucumber tests
+        id: run-tests
+        run: |
+          TEST_OUTPUT=$(cucumber features)
+          echo "$TEST_OUTPUT" > cucumber_output.txt
+          echo "::set-output name=output::$TEST_OUTPUT"
+
+      - name: Send results to Slack
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "attachments": [
+                {
+                  "title": "Cucumber Test Results",
+                  "text": "${{ steps.run-tests.outputs.output }}",
+                  "color": "#36a64f"
+                }
+              ]
+            }
