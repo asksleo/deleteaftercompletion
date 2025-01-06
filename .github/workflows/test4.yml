@@ -19,13 +19,16 @@ jobs:
           distribution: 'adopt'
           java-version: '11'  # Specify the Java version you need
 
+      - name: Verify CucumberReportParser.java existence
+        run: ls -la src/utils
+
       - name: Compile Java program
-        run: javac CucumberReportParser.java
+        run: javac src/utils/CucumberReportParser.java
 
       - name: Run Java program
         id: run-parser
         run: |
-          java CucumberReportParser > report.txt
+          java -cp src/utils CucumberReportParser > report.txt
           cat report.txt
 
       - name: Send results to Slack
