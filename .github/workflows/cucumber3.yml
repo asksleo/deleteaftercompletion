@@ -1,4 +1,4 @@
-name: Maven Test
+name: Maven Testthree
 on:
   push:
     branches:
