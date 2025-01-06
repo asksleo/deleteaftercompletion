@@ -35,7 +35,7 @@ jobs:
         run: rm -rf target/*
 
       - name: Run Cucumber tests
-        run: mvn test -Dcucumber.options="--plugin pretty --plugin junit:target/cucumber-report/cucumber.xml"
+        run: mvn test -Dcucumber.options="--plugin pretty --plugin junit:target/cucumber-report/cucumber.xml --plugin json:target/cucumber.json"
 
       - name: Generate JSON report
         run: mvn test -Dcucumber.options="--plugin json:target/cucumber.json"
