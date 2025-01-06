@@ -46,5 +46,53 @@ jobs:
           name: cucumber-report
           path: target/cucumber.json
 
-      - name: Output JSON report for inspection
-        run: cat target/cucumber.json
+      - name: Parse JSON report
+        id: parse_json
+        run: |
+          features=$(jq '. | length' target/cucumber.json)
+          passedFeatures=$(jq '[.[] | select(.elements[].steps[].result.status == "passed")] | length' target/cucumber.json)
+          failedFeatures=$(jq '[.[] | select(.elements[].steps[].result.status == "failed")] | length' target/cucumber.json)
+          echo "features=$features" >> $GITHUB_ENV
+          echo "passedFeatures=$passedFeatures" >> $GITHUB_ENV
+          echo "failedFeatures=$failedFeatures" >> $GITHUB_ENV
+
+      - name: Debug parsed values
+        run: |
+          echo "Total Features: ${{ env.features }}"
+          echo "Passed Features: ${{ env.passedFeatures }}"
+          echo "Failed Features: ${{ env.failedFeatures }}"
+
+      - name: Send Cucumber report to Slack
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        with:
+          message: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Cucumber Test Report"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Total Features:* ${{ env.features }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Passed Features:* ${{ env.passedFeatures }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Failed Features:* ${{ env.failedFeatures }}"
+                    }
+                  ]
+                }
+              ]
+            }
