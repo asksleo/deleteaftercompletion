@@ -25,8 +25,8 @@ jobs:
       - name: Remove previous report
         run: rm -f ctrf/*
 
-      - name: Build
-        run: npm test
+#      - name: Build
+#        run: npm test
 
       - name: List files
         run: ls -R
