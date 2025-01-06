@@ -1,8 +1,8 @@
 name: Cucumber Test23
 on:
-  push:
-    branches:
-      - karan
+  workflow_run:
+    workflows: ["Cucumber Tests"]
+    types: [completed]
 jobs:
   test:
     runs-on: ubuntu-latest
