@@ -9,6 +9,6 @@
     "declaration": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["dist"]
+  "include": ["/home/runner/work/deleteaftercompletion/deleteaftercompletion/src/**/*"],
+  "exclude": ["/home/runner/work/deleteaftercompletion/deleteaftercompletion/dist"]
 }

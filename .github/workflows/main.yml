@@ -31,8 +31,8 @@ jobs:
       - name: List files
         run: ls -R
 
-      - name: Build
-        run: npx tsc
+#      - name: Build
+#        run: npx tsc
 
       - name: Convert
         run: npx junit-to-ctrf target/cucumber-report/cucumber.xml
