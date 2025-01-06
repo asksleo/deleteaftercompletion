@@ -30,8 +30,8 @@ jobs:
 
       - name: Run Java program to parse Cucumber XML and send results to Slack
         run: |
-          javac CucumberReportParser.java
-          java CucumberReportParser
+          javac src/test/java/utils/CucumberReportParser.java
+          java src/test/java/utils/CucumberReportParser.java
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
