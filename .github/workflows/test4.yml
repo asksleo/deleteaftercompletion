@@ -20,15 +20,15 @@ jobs:
           java-version: '11'  # Specify the Java version you need
 
       - name: Verify CucumberReportParser.java existence
-        run: ls -la src/utils
+        run: ls -la src/test/java/utils
 
       - name: Compile Java program
-        run: javac src/utils/CucumberReportParser.java
+        run: javac src/test/java/utils/CucumberReportParser.java
 
       - name: Run Java program
         id: run-parser
         run: |
-          java -cp src/utils CucumberReportParser > report.txt
+          java -cp src/test/java/utils CucumberReportParser > report.txt
           cat report.txt
 
       - name: Send results to Slack
