@@ -1,4 +1,4 @@
-name: Cucumber Tests 46
+name: Cucumber Testsforty
 
 on:
   push:
@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: cucumber-results
-          path: target/cucumber-report/cucumber.xml
+          path: target/cucumber.json
 
       - name: Send Cucumber report to Slack
         uses: slack/webhook@v1
