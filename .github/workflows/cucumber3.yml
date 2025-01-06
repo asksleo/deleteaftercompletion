@@ -38,8 +38,7 @@ jobs:
         run: mvn test -Dcucumber.options="--plugin pretty --plugin junit:target/cucumber-report/cucumber.xml"
 
       - name: Generate JSON report
-        run: |
-          cucumber --format json --out target/cucumber.json
+        run: mvn test -Dcucumber.options="--plugin json:target/cucumber.json"
 
       - name: Upload report to GitHub Artifacts
         uses: actions/upload-artifact@v3
