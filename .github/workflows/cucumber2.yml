@@ -1,55 +1,33 @@
-name: Cucumber Testsforty
-
+name: Cucumber Test
 on:
   push:
     branches:
       - karan
-  pull_request:
-    branches:
-      - karan
-
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK 11
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
-          java-version: 11
           distribution: 'adopt'
-
-      - name: Cache Maven dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      - name: Clean target directory
-        run: mvn clean
-
-      - name: Install Maven dependencies
-        run: mvn install -DskipTests
-
-      - name: Clean report directory
-        run: rm -rf target/*
+          java-version: '11'
 
       - name: Run Cucumber tests
-        run: mvn test -Dcucumber.options="--plugin pretty --plugin json:target/cucumber.json"
+        run: |
+          ./gradlew cucumber
 
-      - name: Check if report exists
-        run: ls -l target/cucumber.json
+      - name: Generate JSON report
+        run: |
+          cucumber --format json --out target/cucumber.json
 
-      - name: Upload Cucumber test results
-        if: always()
-        uses: actions/upload-artifact@v3
+      - name: Upload report to GitHub Artifacts
+        uses: actions/upload-artifact@v2
         with:
-          name: cucumber-results
+          name: cucumber-report
           path: target/cucumber.json
 
       - name: Send Cucumber report to Slack
