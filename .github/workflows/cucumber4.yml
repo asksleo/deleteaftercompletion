@@ -1,4 +1,4 @@
-name: Maven TestER
+name: Maven Test
 on:
   push:
     branches:
@@ -38,10 +38,10 @@ jobs:
         id: maven_tests
         run: |
           mvn test | tee maven_output.txt
-          TEST_RESULTS=$(grep -A 2 'Results:' maven_output.txt | sed 's/^\[INFO\]//g')
-          BUILD_SUMMARY=$(grep 'BUILD SUCCESS' maven_output.txt | sed 's/^\[INFO\]/g')
-          TOTAL_TIME=$(grep 'Total time' maven_output.txt | sed 's/^\[INFO\]//g')
-          FINISHED_AT=$(grep 'Finished at' maven_output.txt | sed 's/^\[INFO\]//g')
+          TEST_RESULTS=$(grep -A 2 'Results:' maven_output.txt | awk '{if ($0 !~ /^\[INFO\]/) print}')
+          BUILD_SUMMARY=$(grep 'BUILD SUCCESS' maven_output.txt | awk '{print substr($0, index($0,$3))}')
+          TOTAL_TIME=$(grep 'Total time' maven_output.txt | awk '{print substr($0, index($0,$3))}')
+          FINISHED_AT=$(grep 'Finished at' maven_output.txt | awk '{print substr($0, index($0,$3))}')
           FORMATTED_OUTPUT="*Test Results*\n"
           FORMATTED_OUTPUT+="${TEST_RESULTS}\n"
           FORMATTED_OUTPUT+="*Build:* ${BUILD_SUMMARY}\n"
