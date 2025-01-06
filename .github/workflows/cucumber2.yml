@@ -1,4 +1,4 @@
-name: Cucumber Testforty
+name: Cucumber Test
 on:
   push:
     branches:
@@ -31,10 +31,12 @@ jobs:
           path: target/cucumber.json
 
       - name: Send Cucumber report to Slack
-        uses: slack/webhook@v1
+        uses: 8398a7/action-slack@v3 # using a more specific Slack action
         with:
-          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          status: always
+          fields: workflow,job,commit,repo,ref,author
         env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           features: $(jq '.features | length' target/cucumber.json)
           passedFeatures: $(jq '.features[] | select(.status == "passed") | length' target/cucumber.json)
           failedFeatures: $(jq '.features[] | select(.status == "failed") | length' target/cucumber.json)
