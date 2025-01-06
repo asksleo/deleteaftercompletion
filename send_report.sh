@@ -9,10 +9,14 @@ passedTests=$(xmllint --xpath "count(//testsuite/testcase[not(failure)])" target
 failedTests=$(xmllint --xpath "count(//testsuite/testcase[failure])" target/cucumber.xml)
 skippedTests=$(xmllint --xpath "count(//testsuite/testcase[skipped])" target/cucumber.xml)
 
-# Extract build details
-BUILD_SUMMARY=$(grep 'BUILD SUCCESS' maven_output.txt | awk '{print substr($0, index($0,$3))}')
+# Extract build details from maven_output.txt
+BUILD_SUMMARY=$(grep 'BUILD' maven_output.txt | head -n 1 | awk '{print substr($0, index($0,$3))}')
 TOTAL_TIME=$(grep 'Total time' maven_output.txt | awk '{print substr($0, index($0,$3))}')
 FINISHED_AT=$(grep 'Finished at' maven_output.txt | awk '{print substr($0, index($0,$3))}')
+
+# Clean up the extracted details
+TOTAL_TIME=$(echo "${TOTAL_TIME}" | sed 's/time: //g')
+FINISHED_AT=$(echo "${FINISHED_AT}" | sed 's/at: //g')
 
 # Debug: Print the parsed results
 echo "Debug: Parsed Results"
@@ -24,7 +28,7 @@ echo "Total Time: ${TOTAL_TIME}"
 echo "Finished At: ${FINISHED_AT}"
 
 # Create summary in the required format
-summary="const passedTests = ${passedTests};\nconst failedTests = ${failedTests};\nconst skippedTests = ${skippedTests};\n*Build:* ${BUILD_SUMMARY};\n*Duration:* ${TOTAL_TIME};\n*Finished at:* ${FINISHED_AT};"
+summary="const passedTests = ${passedTests};\nconst failedTests = ${failedTests};\nconst skippedTests = ${skippedTests};\nBuild: ${BUILD_SUMMARY};\nDuration: ${TOTAL_TIME};\nFinished at: ${FINISHED_AT};"
 
 # Send the summary to Slack
 SLACK_WEBHOOK_URL=$1
