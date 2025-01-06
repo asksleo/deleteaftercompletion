@@ -9,6 +9,7 @@ public class Toplinks {
     @Given("user visited the landing page")
     public void user_visited_the_landing_page() {
         System.out.println("System.is.launched");
+        System.out.println("System.is.launched");
     }
     @When("user hit the toplinks menu button")
     public void user_hit_the_toplinks_menu_button() throws InterruptedException {
