@@ -28,7 +28,7 @@ jobs:
       - name: Run Java program
         id: run-parser
         run: |
-          java -cp src/test/java/utils CucumberReportParser > report.txt
+          java -cp src/test/java utils.CucumberReportParser > report.txt
           cat report.txt
 
       - name: Send results to Slack
