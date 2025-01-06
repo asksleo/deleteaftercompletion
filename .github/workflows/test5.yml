@@ -2,7 +2,7 @@ name: Cucumber Test23
 on:
   push:
     branches:
-      - main
+      - karan
 jobs:
   test:
     runs-on: ubuntu-latest
