@@ -60,4 +60,4 @@ jobs:
       - name: Send Maven results to Slack
         run: |
          SLACK_MESSAGE=$(cat formatted_report.txt)
-        curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"${SLACK_MESSAGE}\"}" ${{ secrets.SLACK_WEBHOOK }}
+         curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"${SLACK_MESSAGE}\"}" ${{ secrets.SLACK_WEBHOOK }}
