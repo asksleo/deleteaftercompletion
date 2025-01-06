@@ -1,0 +1,51 @@
+name: Cucumber Test
+on:
+  push:
+    branches:
+      - karan
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run Cucumber tests
+        run: |
+          mvn test
+      - name: Send Cucumber report to Slack
+        uses: slack/webhook@v1
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          message: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Cucumber Test Report"
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Total Features:* ${features}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Passed Features:* ${passedFeatures}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Failed Features:* ${failedFeatures}"
+                    }
+                  ]
+                }
+              ]
+            }
+          env:
+            features: $(jq '.features | length' target/cucumber.json)
+            passedFeatures: $(jq '.features[] | select(.status == "passed") | length' target/cucumber.json)
+            failedFeatures: $(jq '.features[] | select(.status == "failed") | length' target/cucumber.json)
