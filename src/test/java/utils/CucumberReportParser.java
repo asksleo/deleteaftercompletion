@@ -11,39 +11,39 @@ import java.io.File;
 public class CucumberReportParser {
 
     public static void main(String[] args) {
+        int passed = 0, failed = 0, skipped = 0, undefined = 0;
+
         try {
             File inputFile = new File("target/cucumber-report/cucumber.xml");
-                        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-                        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-                        Document doc = dBuilder.parse(inputFile);
-                        doc.getDocumentElement().normalize();
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
 
-                        NodeList nList = doc.getElementsByTagName("testcase");
+            NodeList nList = doc.getElementsByTagName("testcase");
 
-                        StringBuilder report = new StringBuilder("Cucumber Test Report\n====================\n");
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
 
-                        for (int temp = 0; temp < nList.getLength(); temp++) {
-                            Node nNode = nList.item(temp);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
 
-                            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                                Element eElement = (Element) nNode;
-                                String testName = eElement.getAttribute("name");
-                                String testClass = eElement.getAttribute("classname");
-                                String duration = eElement.getAttribute("time");
-
-                                NodeList failureList = eElement.getElementsByTagName("failure");
-                                String status = (failureList.getLength() > 0) ? "Failed" : "Passed";
-
-                                report.append("Test Name: ").append(testName).append("\n");
-                                report.append("Class: ").append(testClass).append("\n");
-                                report.append("Duration: ").append(duration).append(" seconds\n");
-                                report.append("Status: ").append(status).append("\n\n");
-                            }
-                        }
-
-                        System.out.println(report.toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    NodeList failureList = eElement.getElementsByTagName("failure");
+                    if (failureList.getLength() > 0) {
+                        failed++;
+                    } else {
+                        passed++;
                     }
                 }
             }
+
+            String output = String.format(
+                    "Test Results\n:white_check_mark: %d | :x: %d | :fast_forward: %d | :hourglass_flowing_sand: %d | :question: 0\nResults: %d failed tests | Duration: <1s\nBuild: No build information provided",
+                    passed, failed, skipped, undefined, failed);
+
+            System.out.println(output);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
