@@ -51,8 +51,6 @@ jobs:
           cat formatted_report.txt
 
       - name: Send Maven results to Slack
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        with:
-          message: "$(cat formatted_report.txt)"
+        run: |
+          SLACK_MESSAGE=$(cat formatted_report.txt)
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"${SLACK_MESSAGE}\"}" ${{ secrets.SLACK_WEBHOOK }}
