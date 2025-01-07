@@ -44,25 +44,52 @@ json_payload=$(cat <<EOF
   "blocks": [
     {
       "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*Passed Tests:* ${passedTests}"
+        },
+        {
+          "type": "image",
+          "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/google-medium/2705@2x.png",
+          "alt_text": "Passed Tests"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*Failed Tests:* ${failedTests}"
+        },
+        {
+          "type": "image",
+          "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/google-medium/274c@2x.png",
+          "alt_text": "Failed Tests"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*Skipped Tests:* ${skippedTests}"
+        },
+        {
+          "type": "image",
+          "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/google-medium/23e9@2x.png",
+          "alt_text": "Skipped Tests"
+        }
+      ]
+    },
+    {
+      "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": "*Build Summary*\n\n*Passed Tests:* ${passedTests}\n*Failed Tests:* ${failedTests}\n*Skipped Tests:* ${skippedTests}\n*Pass Percentage:* ${passPercentage}%\n*Build:* ${BUILD_SUMMARY}\n*Duration:* ${TOTAL_TIME}\n*Finished At:* ${FINISHED_AT}"
+        "text": "*Build Summary*\n\n*Pass Percentage:* ${passPercentage}%\n*Build:* ${BUILD_SUMMARY}\n*Duration:* ${TOTAL_TIME}\n*Finished At:* ${FINISHED_AT}"
       }
-    },
-    {
-      "type": "image",
-      "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/google-medium/2705@2x.png",
-      "alt_text": "Passed Tests"
-    },
-    {
-      "type": "image",
-      "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/google-medium/274c@2x.png",
-      "alt_text": "Failed Tests"
-    },
-    {
-      "type": "image",
-      "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/google-medium/23e9@2x.png",
-      "alt_text": "Skipped Tests"
     }
   ]
 }
