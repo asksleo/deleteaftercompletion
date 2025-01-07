@@ -48,12 +48,6 @@ json_payload=$(cat <<EOF
         "type": "mrkdwn",
         "text": "*Build Summary*\n\n*Passed Tests:* ${passedTests}\n*Failed Tests:* ${failedTests}\n*Skipped Tests:* ${skippedTests}\n*Passing rate:* ${passPercentage}%\n*Build:* ${BUILD_SUMMARY}\n*Duration:* ${TOTAL_TIME}\n*Finished at:* ${FINISHED_AT}"
       },
-      "accessory": {
-        "type": "image",
-        "image_url": "https://example.com/passed_image.png",
-        "alt_text": "Passed Tests"
-      }
-    },
     {
       "type": "section",
       "fields": [
@@ -61,13 +55,6 @@ json_payload=$(cat <<EOF
           "type": "mrkdwn",
           "text": "*Failed Tests:* ${failedTests}"
         },
-        {
-          "type": "image",
-          "image_url": "https://example.com/failed_image.png",
-          "alt_text": "Failed Tests"
-        }
-      ]
-    },
     {
       "type": "section",
       "fields": [
@@ -75,13 +62,6 @@ json_payload=$(cat <<EOF
           "type": "mrkdwn",
           "text": "*Skipped Tests:* ${skippedTests}"
         },
-        {
-          "type": "image",
-          "image_url": "https://example.com/skipped_image.png",
-          "alt_text": "Skipped Tests"
-        }
-      ]
-    },
     {
       "type": "section",
       "text": {
