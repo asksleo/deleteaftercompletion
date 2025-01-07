@@ -12,5 +12,6 @@ public class Toplink2 {
         System.out.println("System.is.launched");
         System.out.println("System.is.launched");
         System.out.println("System.is.launched");
+        System.out.println("System.is.launched");
     }
 }
