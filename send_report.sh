@@ -38,66 +38,6 @@ echo "Finished At: ${FINISHED_AT}"
 # Create summary in the required format
 summary="Passed Scenarios = ${passedTests};\nFailed Scenarios = ${failedTests};\nSkipped Scenarios = ${skippedTests};\n Passing rate % = ${passPercentage}%;\nBuild: ${BUILD_SUMMARY};\nDuration: ${TOTAL_TIME};\nFinished at: ${FINISHED_AT};"
 
-# JSON payload with Block Kit for Slack
-json_payload=$(cat <<EOF
-{
-  "blocks": [
-    {
-      "type": "section",
-      "text": {
-        "type": "mrkdwn",
-        "text": "*Build Summary*\n\n*Passed Tests:* ${passedTests}\n*Failed Tests:* ${failedTests}\n*Skipped Tests:* ${skippedTests}\n*Passing rate:* ${passPercentage}%\n*Build:* ${BUILD_SUMMARY}\n*Duration:* ${TOTAL_TIME}\n*Finished at:* ${FINISHED_AT}"
-      },
-      "accessory": {
-        "type": "image",
-        "image_url": "https://example.com/passed_image.png",
-        "alt_text": "Passed Tests"
-      }
-    },
-    {
-      "type": "section",
-      "fields": [
-        {
-          "type": "mrkdwn",
-          "text": "*Failed Tests:* ${failedTests}"
-        },
-        {
-          "type": "image",
-          "image_url": "https://example.com/failed_image.png",
-          "alt_text": "Failed Tests"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "fields": [
-        {
-          "type": "mrkdwn",
-          "text": "*Skipped Tests:* ${skippedTests}"
-        },
-        {
-          "type": "image",
-          "image_url": "https://example.com/skipped_image.png",
-          "alt_text": "Skipped Tests"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "text": {
-        "type": "mrkdwn",
-        "text": "*Passing rate:* ${passPercentage}%\n*Build:* ${BUILD_SUMMARY}\n*Duration:* ${TOTAL_TIME}\n*Finished at:* ${FINISHED_AT}"
-      }
-    }
-  ]
-}
-EOF
-)
-
-# Print the JSON payload to the logs for debugging
-echo "Debug: JSON Payload"
-echo "${json_payload}"
-
 # Send the summary to Slack
 SLACK_WEBHOOK_URL=$1
-curl -X POST -H 'Content-type: application/json' --data "${json_payload}" "${SLACK_WEBHOOK_URL}"
+curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"${summary}\"}" "${SLACK_WEBHOOK_URL}"
