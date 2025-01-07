@@ -44,17 +44,15 @@ json_payload=$(cat <<EOF
   "blocks": [
     {
       "type": "section",
-      "fields": [
-        {
-          "type": "mrkdwn",
-          "text": "*Passed Tests:* ${passedTests}"
-        },
-        {
-          "type": "image",
-          "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/google-medium/2705@2x.png",
-          "alt_text": "Passed Tests"
-        }
-      ]
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Build Summary*\n\n*Passed Tests:* ${passedTests}\n*Failed Tests:* ${failedTests}\n*Skipped Tests:* ${skippedTests}\n*Passing rate:* ${passPercentage}%\n*Build:* ${BUILD_SUMMARY}\n*Duration:* ${TOTAL_TIME}\n*Finished at:* ${FINISHED_AT}"
+      },
+      "accessory": {
+        "type": "image",
+        "image_url": "https://example.com/passed_image.png",
+        "alt_text": "Passed Tests"
+      }
     },
     {
       "type": "section",
@@ -65,7 +63,7 @@ json_payload=$(cat <<EOF
         },
         {
           "type": "image",
-          "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/google-medium/274c@2x.png",
+          "image_url": "https://example.com/failed_image.png",
           "alt_text": "Failed Tests"
         }
       ]
@@ -79,7 +77,7 @@ json_payload=$(cat <<EOF
         },
         {
           "type": "image",
-          "image_url": "https://a.slack-edge.com/production-standard-emoji-assets/14.0/google-medium/23e9@2x.png",
+          "image_url": "https://example.com/skipped_image.png",
           "alt_text": "Skipped Tests"
         }
       ]
@@ -88,13 +86,17 @@ json_payload=$(cat <<EOF
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": "*Build Summary*\n\n*Pass Percentage:* ${passPercentage}%\n*Build:* ${BUILD_SUMMARY}\n*Duration:* ${TOTAL_TIME}\n*Finished At:* ${FINISHED_AT}"
+        "text": "*Passing rate:* ${passPercentage}%\n*Build:* ${BUILD_SUMMARY}\n*Duration:* ${TOTAL_TIME}\n*Finished at:* ${FINISHED_AT}"
       }
     }
   ]
 }
 EOF
 )
+
+# Print the JSON payload to the logs for debugging
+echo "Debug: JSON Payload"
+echo "${json_payload}"
 
 # Send the summary to Slack
 SLACK_WEBHOOK_URL=$1
