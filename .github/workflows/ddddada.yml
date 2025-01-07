@@ -1,4 +1,4 @@
-name: Run Cucumber Tests and Send Results to Slack
+name: Run Cucumber Tests ddd
 
 on:
   push:
