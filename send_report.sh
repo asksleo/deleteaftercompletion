@@ -36,7 +36,7 @@ echo "Total Time: ${TOTAL_TIME}"
 echo "Finished At: ${FINISHED_AT}"
 
 # Create summary in the required format
-summary="const passedTests = ${passedTests};\nconst failedTests = ${failedTests};\nconst skippedTests = ${skippedTests};\nconst passPercentage = ${passPercentage}%;\nBuild: ${BUILD_SUMMARY};\nDuration: ${TOTAL_TIME};\nFinished at: ${FINISHED_AT};"
+summary="Passed Scenarios = ${passedTests};\nconst failedTests = ${failedTests};\nconst skippedTests = ${skippedTests};\nconst passPercentage = ${passPercentage}%;\nBuild: ${BUILD_SUMMARY};\nDuration: ${TOTAL_TIME};\nFinished at: ${FINISHED_AT};"
 
 # Send the summary to Slack
 SLACK_WEBHOOK_URL=$1
