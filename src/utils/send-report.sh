@@ -46,37 +46,28 @@ json_payload=$(cat <<EOF
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": "*Build Summary*\n\n*Passed Tests:* ${passedTests}\n*Failed Tests:* ${failedTests}\n*Skipped Tests:* ${skippedTests}\n*Passing rate:* ${passPercentage}%\n*Build:* ${BUILD_SUMMARY}\n*Duration:* ${TOTAL_TIME}\n*Finished at:* ${FINISHED_AT}"
-      },
-    {
-      "type": "section",
-      "fields": [
-        {
-          "type": "mrkdwn",
-          "text": "*Failed Tests:* ${failedTests}"
-        },
-    {
-      "type": "section",
-      "fields": [
-        {
-          "type": "mrkdwn",
-          "text": "*Skipped Tests:* ${skippedTests}"
-        },
-    {
-      "type": "section",
-      "text": {
-        "type": "mrkdwn",
-        "text": "*Passing rate:* ${passPercentage}%\n*Build:* ${BUILD_SUMMARY}\n*Duration:* ${TOTAL_TIME}\n*Finished at:* ${FINISHED_AT}"
+        "text": "*Build Summary*\n\n*Passed Tests:* ${passedTests}\n*Failed Tests:* ${failedTests}\n*Skipped Tests:* ${skippedTests}\n*Pass Percentage:* ${passPercentage}%\n*Build:* ${BUILD_SUMMARY}\n*Duration:* ${TOTAL_TIME}\n*Finished At:* ${FINISHED_AT}"
       }
+    },
+    {
+      "type": "image",
+      "image_url": "https://example.com/passed_image.png",
+      "alt_text": "Passed Tests"
+    },
+    {
+      "type": "image",
+      "image_url": "https://example.com/failed_image.png",
+      "alt_text": "Failed Tests"
+    },
+    {
+      "type": "image",
+      "image_url": "https://example.com/skipped_image.png",
+      "alt_text": "Skipped Tests"
     }
   ]
 }
 EOF
 )
-
-# Print the JSON payload to the logs for debugging
-echo "Debug: JSON Payload"
-echo "${json_payload}"
 
 # Send the summary to Slack
 SLACK_WEBHOOK_URL=$1
